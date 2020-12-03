@@ -15,3 +15,17 @@ export GOOGLE_APPLICATION_CREDENTIALS="./credentials/terraform-dev.key.json"
 
 # show current tf state file
 gsutil ls gs://${PROJECT_ID}-tf-state/dev/
+
+# get node pool for cluster
+export CLUSTER_NAME=pwup-coding-dev
+export ZONE=export CLUSTER_NAME=your-project-dev                           
+export ZONE=us-east1-b                          
+gcloud container node-pools list --cluster=$CLUSTER_NAME --zone=$ZONE
+
+# force update nodepool
+gcloud container clusters upgrade $CLUSTER_NAME \
+  --zone=$ZONE \
+  --node-pool=dev-np-primary-preemptible
+
+# set cluster credentials for kubectl
+gcloud container clusters get-credentials $CLUSTER_NAME --zone=$ZONE
