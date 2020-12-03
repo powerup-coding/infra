@@ -9,3 +9,10 @@ plan:
 
 apply:
 	terraform apply "plan.tfplan"
+
+plan.destroy:
+	terraform plan -destroy -out destroy.plan
+
+apply.destroy:
+	terraform apply "destroy.plan"
+	
