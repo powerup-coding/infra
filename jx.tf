@@ -20,3 +20,19 @@ resource "kubernetes_secret" "kaniko-secret" {
     "kaniko-secret" = base64decode(google_service_account_key.kaniko-sa-key.private_key)
   }
 }
+
+resource "google_storage_bucket" "lts-bucket" {
+  name     = "${google_container_cluster.dev_cluster.name}-lts"
+  location = "US"
+}
+
+resource "kubernetes_secret" "external-dns-gcp-sa" {
+  depends_on = [kubernetes_namespace.jx-namespace]
+  metadata {
+    name      = "external-dns-gcp-sa"
+    namespace = "jx"
+  }
+  data = {
+    "credentials.json" = base64decode(google_service_account_key.external-dns-gcp-sa-key.private_key)
+  }
+}
