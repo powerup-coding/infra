@@ -18,7 +18,6 @@ gsutil ls gs://${PROJECT_ID}-tf-state/dev/
 
 # get node pool for cluster
 export CLUSTER_NAME=pwup-coding-dev
-export ZONE=export CLUSTER_NAME=your-project-dev                           
 export ZONE=us-east1-b                          
 gcloud container node-pools list --cluster=$CLUSTER_NAME --zone=$ZONE
 
